@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sacred Sound Sister — Bracken Roots</title>
+  <meta name="description" content="Sound-based wellbeing practice by Bracken Roots. Immersive sound baths, corporate wellness, retreats, and bespoke 1:1 sessions.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bracken-taupe': '#9B8B7A',
+            'ritual-cream': '#FAF7F2',
+            'warm-sand': '#F0E8DC',
+            'burnished-brass': '#B8976A',
+            'deep-earth': '#2C241E',
+            'stone': '#6B5E52',
+            'soft-linen': '#E8DFD3',
+            'charcoal-root': '#3D3228',
+          },
+          fontFamily: {
+            'display': ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            'body': ['Lora', 'Georgia', 'serif'],
+            'sans': ['Raleway', 'system-ui', 'sans-serif'],
+          },
+          spacing: {
+            '18': '4.5rem',
+            '22': '5.5rem',
+            '30': '7.5rem',
+            '34': '8.5rem',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* ===== BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: #FAF7F2; }
+    body { font-family: 'Lora', Georgia, serif; color: #2C241E; line-height: 1.7; background: #FAF7F2; }
+
+    /* No pure white or pure black anywhere */
+
+    /* ===== GRAIN TEXTURE ===== */
+    .grain-overlay { position: relative; }
+    .grain-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', Georgia, serif; }
+    h1 { font-weight: 300; letter-spacing: -0.03em; line-height: 1.15; }
+    h2 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.25; }
+    h3 { font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; }
+
+    /* ===== BRAND SHADOWS ===== */
+    .shadow-brand-sm { box-shadow: 0 1px 3px rgba(155,139,122,0.08), 0 1px 2px rgba(155,139,122,0.06); }
+    .shadow-brand { box-shadow: 0 4px 12px rgba(155,139,122,0.1), 0 2px 4px rgba(155,139,122,0.06); }
+    .shadow-brand-lg { box-shadow: 0 10px 30px rgba(155,139,122,0.12), 0 4px 8px rgba(155,139,122,0.08); }
+
+    /* ===== MOTION SYSTEM ===== */
+    :root {
+      --duration-reveal: 600ms;
+      --duration-hero: 500ms;
+      --duration-hover: 200ms;
+      --easing-settle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Hero load sequence */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-image { animation: heroFadeUp 800ms var(--easing-settle) 0ms forwards; opacity: 0; }
+    .hero-heading { animation: heroFadeUp var(--duration-hero) var(--easing-settle) 500ms forwards; opacity: 0; }
+    .hero-tagline { animation: heroFadeUp var(--duration-hero) var(--easing-settle) 800ms forwards; opacity: 0; }
+    .hero-cta { animation: heroFadeUp var(--duration-hero) var(--easing-settle) 1100ms forwards; opacity: 0; }
+
+    /* Scroll reveals */
+    [data-animate] { opacity: 0; transform: translateY(24px); }
+    [data-animate].revealed {
+      opacity: 1; transform: translateY(0);
+      transition: opacity var(--duration-reveal) var(--easing-settle), transform var(--duration-reveal) var(--easing-settle);
+    }
+    [data-animate-stagger] > * { opacity: 0; transform: translateY(16px); }
+    [data-animate-stagger].revealed > * {
+      opacity: 1; transform: translateY(0);
+      transition: opacity var(--duration-reveal) var(--easing-settle), transform var(--duration-reveal) var(--easing-settle);
+    }
+    [data-animate-stagger].revealed > *:nth-child(1) { transition-delay: 0ms; }
+    [data-animate-stagger].revealed > *:nth-child(2) { transition-delay: 80ms; }
+    [data-animate-stagger].revealed > *:nth-child(3) { transition-delay: 160ms; }
+    [data-animate-stagger].revealed > *:nth-child(4) { transition-delay: 240ms; }
+    [data-animate-stagger].revealed > *:nth-child(5) { transition-delay: 320ms; }
+    [data-animate-stagger].revealed > *:nth-child(6) { transition-delay: 400ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-image, .hero-heading, .hero-tagline, .hero-cta,
+      [data-animate], [data-animate-stagger] > * {
+        opacity: 1; transform: none; transition: none; animation: none;
+      }
+    }
+
+    /* ===== NAV LINK UNDERLINE ===== */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 1px;
+      background: #9B8B7A; transform: scaleX(0); transform-origin: left;
+      transition: transform var(--duration-hover) ease-out;
+    }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link:active { opacity: 0.8; }
+
+    /* ===== BUTTON STATES ===== */
+    .btn-primary {
+      transition: box-shadow var(--duration-hover) ease-out, transform var(--duration-hover) ease-out, background-color var(--duration-hover) ease-out;
+    }
+    .btn-primary:hover { box-shadow: 0 4px 20px rgba(184,151,106,0.3); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-outline {
+      transition: background-color var(--duration-hover) ease-out, transform var(--duration-hover) ease-out, border-color var(--duration-hover) ease-out;
+    }
+    .btn-outline:hover { background: rgba(155,139,122,0.08); border-color: rgba(155,139,122,0.5); }
+    .btn-outline:active { transform: scale(0.98); }
+
+    /* ===== CARD STATES ===== */
+    .card-interactive {
+      transition: transform var(--duration-hover) ease-out, box-shadow var(--duration-hover) ease-out;
+    }
+    .card-interactive:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(155,139,122,0.12), 0 4px 8px rgba(155,139,122,0.08); }
+    .card-interactive:active { transform: translateY(-2px); }
+
+    /* ===== FOCUS STATES ===== */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, .card-interactive:focus-visible {
+      outline: 2px solid #B8976A; outline-offset: 4px;
+    }
+
+    /* ===== FORM STATES ===== */
+    .form-input {
+      transition: border-color var(--duration-hover) ease-out, box-shadow var(--duration-hover) ease-out;
+    }
+    .form-input:hover { border-color: #6B5E52; }
+    .form-input:focus { border-color: #B8976A; box-shadow: 0 0 0 3px rgba(184,151,106,0.15); outline: none; }
+
+    /* ===== IMAGE TREATMENT ===== */
+    .image-treated { position: relative; overflow: hidden; }
+    .image-treated img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .image-treated::before {
+      content: ''; position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to top, rgba(61,50,40,0.5) 0%, rgba(61,50,40,0.1) 40%, transparent 100%);
+    }
+    .image-treated::after {
+      content: ''; position: absolute; inset: 0; z-index: 3;
+      background: #9B8B7A; mix-blend-mode: multiply; opacity: 0.08;
+    }
+
+    /* ===== HEADER ===== */
+    .header-scrolled { background: rgba(250,247,242,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+    /* ===== MOBILE NAV ===== */
+    .mobile-nav { transform: translateX(100%); transition: transform 300ms var(--easing-settle); }
+    .mobile-nav.open { transform: translateX(0); }
+
+    /* ===== TESTIMONIAL SCROLL ===== */
+    .testimonial-scroll { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .testimonial-scroll > * { scroll-snap-align: center; }
+
+    /* ===== PROSE CONSTRAINT ===== */
+    .prose-constrained { max-width: 70ch; }
+  </style>
+</head>
+<body>
+
+  <!-- SKIP TO CONTENT -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:bg-burnished-brass focus:text-ritual-cream focus:px-4 focus:py-2 font-sans text-sm">
+    Skip to content
+  </a>
+
+  <!-- ===== HEADER ===== -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-[40] transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-18 md:h-22">
+      <!-- Logo -->
+      <a href="#" class="relative z-10 flex items-center gap-3">
+        <img src="brand_assets/logo-triquetra.png" alt="Sacred Sound Sister" class="h-10 md:h-12 w-auto">
+        <span class="hidden md:block font-display text-lg font-medium tracking-tight text-deep-earth">Sacred Sound Sister</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
+        <a href="#about" class="nav-link font-sans text-xs font-medium uppercase tracking-[0.12em] text-stone hover:text-deep-earth">About</a>
+        <a href="#offerings" class="nav-link font-sans text-xs font-medium uppercase tracking-[0.12em] text-stone hover:text-deep-earth">Offerings</a>
+        <a href="#testimonials" class="nav-link font-sans text-xs font-medium uppercase tracking-[0.12em] text-stone hover:text-deep-earth">Kind Words</a>
+        <a href="#gallery" class="nav-link font-sans text-xs font-medium uppercase tracking-[0.12em] text-stone hover:text-deep-earth">As Seen At</a>
+        <a href="#contact" class="btn-primary font-sans text-xs font-medium uppercase tracking-[0.12em] bg-burnished-brass text-ritual-cream px-5 py-2.5 hover:bg-[#a6854f]">Get in Touch</a>
+      </nav>
+
+      <!-- Mobile Hamburger -->
+      <button id="menu-toggle" class="md:hidden relative z-10 w-11 h-11 flex items-center justify-center" aria-label="Open menu" aria-expanded="false">
+        <div class="space-y-1.5">
+          <span class="block w-6 h-px bg-deep-earth transition-transform duration-200" id="bar1"></span>
+          <span class="block w-6 h-px bg-deep-earth transition-opacity duration-200" id="bar2"></span>
+          <span class="block w-6 h-px bg-deep-earth transition-transform duration-200" id="bar3"></span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="mobile-nav" class="mobile-nav fixed inset-0 bg-ritual-cream z-[50] flex flex-col items-center justify-center gap-8" aria-hidden="true">
+      <button id="menu-close" class="absolute top-6 right-6 w-11 h-11 flex items-center justify-center" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#2C241E" stroke-width="1.5"><line x1="2" y1="2" x2="18" y2="18"/><line x1="18" y1="2" x2="2" y2="18"/></svg>
+      </button>
+      <a href="#about" class="mobile-nav-link font-display text-3xl font-light text-deep-earth">About</a>
+      <a href="#offerings" class="mobile-nav-link font-display text-3xl font-light text-deep-earth">Offerings</a>
+      <a href="#testimonials" class="mobile-nav-link font-display text-3xl font-light text-deep-earth">Kind Words</a>
+      <a href="#gallery" class="mobile-nav-link font-display text-3xl font-light text-deep-earth">As Seen At</a>
+      <a href="#contact" class="mobile-nav-link font-display text-3xl font-light text-burnished-brass">Get in Touch</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== HERO ===== -->
+    <section class="relative h-screen w-full overflow-hidden grain-overlay">
+      <!-- Background image -->
+      <div class="hero-image absolute inset-0">
+        <div class="image-treated w-full h-full">
+          <img src="brand_assets/bracken-flute.jpg" alt="Bracken Roots playing a wooden flute surrounded by crystal singing bowls, gongs, and candles" loading="eager">
+        </div>
+      </div>
+
+      <!-- Extra gradient for hero readability -->
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal-root/70 via-charcoal-root/15 to-transparent z-[4]"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 flex h-full flex-col items-center justify-end pb-16 md:pb-24 text-center px-6">
+        <h1 class="hero-heading font-display text-5xl md:text-7xl lg:text-[5.5rem] font-light text-ritual-cream">
+          Sacred Sound Sister
+        </h1>
+        <p class="hero-tagline mt-4 font-sans text-xs md:text-sm font-medium uppercase tracking-[0.18em] text-soft-linen/90">
+          Rest is the medicine
+        </p>
+        <a href="#about" class="hero-cta mt-10 btn-outline font-sans text-xs font-medium uppercase tracking-[0.1em] text-ritual-cream border border-ritual-cream/30 px-8 py-3.5">
+          Explore
+        </a>
+      </div>
+    </section>
+
+    <!-- Sound wave divider -->
+    <div class="py-2">
+      <svg viewBox="0 0 1440 24" preserveAspectRatio="none" class="w-full h-5" aria-hidden="true">
+        <path d="M0,12 C120,4 240,20 360,12 C480,4 600,20 720,12 C840,4 960,20 1080,12 C1200,4 1320,20 1440,12" stroke="#E8DFD3" fill="none" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="relative py-20 md:py-30 overflow-hidden grain-overlay">
+      <!-- Radial glow -->
+      <div class="absolute top-1/2 left-1/4 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" style="background: radial-gradient(circle, rgba(184,151,106,0.06) 0%, transparent 70%);"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10" data-animate>
+        <p class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe mb-4">Meet Bracken</p>
+
+        <div class="grid md:grid-cols-2 gap-10 md:gap-16 lg:gap-22 items-center">
+          <!-- Text -->
+          <div>
+            <h2 class="text-4xl md:text-5xl text-deep-earth mb-8">About</h2>
+            <div class="prose-constrained space-y-5 text-stone text-base md:text-[17px]">
+              <p>My relationship with sound began early, shaped by an upbringing that valued ritual, deep listening, and connection. From a young age, I experienced sound not simply as something we hear, but as a subtle and powerful tool for calm, reflection, and emotional wellbeing.</p>
+              <p>In 2015, during my own journey with stress, I experienced firsthand the calming effects of sound. This became a turning point, leading me to train as a certified Sound Healing Practitioner and commit to sharing sound as an accessible, restorative practice.</p>
+              <p>Today, I create intentional sound experiences that feel grounding and welcoming — weaving voice, instruments, guided meditation, and simple movement to create inclusive, deeply restorative spaces.</p>
+            </div>
+          </div>
+
+          <!-- Image - extends beyond column -->
+          <div class="relative md:-mr-10 lg:-mr-16">
+            <div class="image-treated aspect-[3/4] rounded-sm overflow-hidden">
+              <img src="brand_assets/bracken-bowls.jpg" alt="Bracken Roots with crystal singing bowls and gongs" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sound wave divider -->
+    <div class="py-2">
+      <svg viewBox="0 0 1440 24" preserveAspectRatio="none" class="w-full h-5" aria-hidden="true">
+        <path d="M0,12 C120,4 240,20 360,12 C480,4 600,20 720,12 C840,4 960,20 1080,12 C1200,4 1320,20 1440,12" stroke="#E8DFD3" fill="none" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- ===== OFFERINGS ===== -->
+    <section id="offerings" class="relative py-20 md:py-30 bg-warm-sand grain-overlay">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+        <div class="text-center mb-14 md:mb-18" data-animate>
+          <p class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe mb-4">Offerings</p>
+          <h2 class="text-4xl md:text-5xl text-deep-earth mb-5">Sound Experiences</h2>
+          <p class="text-stone text-base md:text-[17px] prose-constrained mx-auto">All sessions can be adapted to create bespoke experiences tailored to your group.</p>
+        </div>
+
+        <!-- Offering Categories -->
+        <div class="space-y-14" data-animate-stagger>
+
+          <!-- Group Experiences -->
+          <div>
+            <h3 class="font-display text-2xl text-deep-earth mb-6">Group Experiences</h3>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Sacred Sound Journey</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Immersive sound bath using rattles, Tibetan bowls, gongs, crystal singing bowls, flute, and chimes.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1–1.5 hours</span>
+              </div>
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Sound Bath & Song</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Sound bath with live vocals, blending voice and instruments to deepen relaxation and presence.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1 hour</span>
+              </div>
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Sound & Sharing Circle</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Sound bath followed by guided connection exercises and sharing for personal reflection and communal connection.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">2 hours</span>
+              </div>
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Sauna Sound Rituals</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Multi-sensory journey with guided sound in sauna heat, cold plunging, and elemental meditation across four sets.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">Multi-session</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Corporate Wellness -->
+          <div>
+            <h3 class="font-display text-2xl text-deep-earth mb-6">Corporate Wellness</h3>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Nervous System Reset</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Private sound bath workshop held onsite or at a local venue, designed to support relaxation, focus, and stress relief.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1–2 hours</span>
+              </div>
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Nature Connection Retreat</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Glamping retreats combining restorative sound baths, sauna and cold plunge, firemaking, organic meals, and guided nature walks.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1–2 days</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Individual -->
+          <div>
+            <h3 class="font-display text-2xl text-deep-earth mb-6">Individual Sessions</h3>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Bespoke 1:1 Sound Healing</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Personalised sound bath on a cosy houseboat or in your home. Sessions begin with a welcome drink and may include guided meditation, body sound work, and optional tarot readings.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1–3 hours</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Immersive Rituals & Retreats -->
+          <div>
+            <h3 class="font-display text-2xl text-deep-earth mb-6">Immersive Rituals & Retreats</h3>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Sound Sanctuary: Day Retreat</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Beginning with a cacao or tea ceremony. Includes a 2-hour sound bath with guided meditation, journalling, gentle movement, and a sharing circle.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">5 hours</span>
+              </div>
+              <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
+                <h4 class="font-display text-xl text-deep-earth mb-2">Sound Bath & Moon Ceremony</h4>
+                <p class="text-stone text-sm leading-relaxed mb-3">Lunar-aligned ritual with cacao ceremony, 1.5-hour sound bath, guided meditation, journalling, and movement. Releasing on the full moon, setting intentions with the new.</p>
+                <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">3 hours</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Sound wave divider -->
+    <div class="py-2">
+      <svg viewBox="0 0 1440 24" preserveAspectRatio="none" class="w-full h-5" aria-hidden="true">
+        <path d="M0,12 C120,4 240,20 360,12 C480,4 600,20 720,12 C840,4 960,20 1080,12 C1200,4 1320,20 1440,12" stroke="#E8DFD3" fill="none" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section id="testimonials" class="relative py-20 md:py-30 grain-overlay">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+        <div class="text-center mb-14" data-animate>
+          <p class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe mb-4">Kind Words</p>
+          <h2 class="text-4xl md:text-5xl text-deep-earth">Testimonials</h2>
+        </div>
+
+        <!-- Testimonial Carousel -->
+        <div class="testimonial-scroll flex gap-8 overflow-x-auto pb-6 px-2 snap-x snap-mandatory -mx-2" data-animate>
+          <!-- Testimonial 1 -->
+          <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
+            <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
+            <blockquote class="relative z-10">
+              <p class="font-body text-stone text-base italic leading-relaxed mb-6">Bracken works with sound with such reverence and she fiercely protects the space — I could feel a deep surrender in the room which was a direct reflection of the safety she cultivates. I absolutely recommend her!</p>
+              <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Anonymous</footer>
+            </blockquote>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
+            <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
+            <blockquote class="relative z-10">
+              <p class="font-body text-stone text-base italic leading-relaxed mb-6">Bracken's sound bath was incredible! She's an expert space holder, who creates safety and trust in her craft. She integrated sound within a breathwork journey, and I found the whole experience to be deep, immersive and healing.</p>
+              <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Anonymous</footer>
+            </blockquote>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
+            <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
+            <blockquote class="relative z-10">
+              <p class="font-body text-stone text-base italic leading-relaxed mb-6">I participated in one of Bracken's soundbaths after a day full of activities and it was simply the most lovely reset. She creatively weaves together different instruments and sound frequencies which took me into a deep relaxation. It was a beautiful experience.</p>
+              <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Anonymous</footer>
+            </blockquote>
+          </div>
+
+          <!-- Testimonial 4 -->
+          <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
+            <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
+            <blockquote class="relative z-10">
+              <p class="font-body text-stone text-base italic leading-relaxed mb-6">My experience in this session is so incredibly special to me because I found a level of healing I have never seen before. Holly led the session whilst catering to every level of experience. The session was paired with a beautiful sound healing session led by Bracken and these two practises worked so well together.</p>
+              <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Kate Luke</footer>
+            </blockquote>
+          </div>
+
+          <!-- Testimonial 5 -->
+          <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
+            <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
+            <blockquote class="relative z-10">
+              <p class="font-body text-stone text-base italic leading-relaxed mb-6">Holly's breathwork was beautiful and intense!! There was so much powerful energy being created in that room. We had beautiful sounds from the amazing Bracken which soothed the soul and made me smile. It is magical and profound — it gets to the root of your trauma and releases it in a beautiful way.</p>
+              <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Louise Rowley</footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sound wave divider -->
+    <div class="py-2">
+      <svg viewBox="0 0 1440 24" preserveAspectRatio="none" class="w-full h-5" aria-hidden="true">
+        <path d="M0,12 C120,4 240,20 360,12 C480,4 600,20 720,12 C840,4 960,20 1080,12 C1200,4 1320,20 1440,12" stroke="#E8DFD3" fill="none" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- ===== GALLERY / AS SEEN AT ===== -->
+    <section id="gallery" class="relative py-20 md:py-30 bg-warm-sand grain-overlay">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+        <div class="text-center mb-14" data-animate>
+          <p class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe mb-4">As Seen At</p>
+          <h2 class="text-4xl md:text-5xl text-deep-earth">Past Events & Residencies</h2>
+        </div>
+
+        <!-- Photo Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 mb-16" data-animate-stagger>
+          <div class="image-treated aspect-square rounded-sm overflow-hidden">
+            <img src="brand_assets/bracken-candles.jpg" alt="Sound healing session with candles and singing bowls" loading="lazy">
+          </div>
+          <div class="image-treated aspect-square rounded-sm overflow-hidden">
+            <img src="https://placehold.co/600x600/F0E8DC/9B8B7A?text=Retreat" alt="Sound healing retreat" loading="lazy">
+          </div>
+          <div class="image-treated aspect-square rounded-sm overflow-hidden">
+            <img src="https://placehold.co/600x600/E8DFD3/9B8B7A?text=Festival" alt="Festival sound bath" loading="lazy">
+          </div>
+          <div class="image-treated aspect-[4/3] rounded-sm overflow-hidden md:col-span-2">
+            <img src="brand_assets/bracken-flute.jpg" alt="Bracken performing at an event" loading="lazy">
+          </div>
+          <div class="image-treated aspect-square rounded-sm overflow-hidden">
+            <img src="https://placehold.co/600x600/F0E8DC/9B8B7A?text=Corporate" alt="Corporate wellness event" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Venue Names -->
+        <div class="flex flex-wrap justify-center gap-x-10 gap-y-4" data-animate>
+          <span class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe/70">Shoreditch & Soul</span>
+          <span class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe/70">Essaouira Retreat</span>
+          <span class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe/70">Saunaverse Festival</span>
+          <span class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe/70">Bingham Riverhouse</span>
+          <span class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe/70">EmbodayFest</span>
+          <span class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe/70">Battle Retreat</span>
+          <span class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe/70">Richmond Retreat</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sound wave divider -->
+    <div class="py-2">
+      <svg viewBox="0 0 1440 24" preserveAspectRatio="none" class="w-full h-5" aria-hidden="true">
+        <path d="M0,12 C120,4 240,20 360,12 C480,4 600,20 720,12 C840,4 960,20 1080,12 C1200,4 1320,20 1440,12" stroke="#E8DFD3" fill="none" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="relative py-20 md:py-30 bg-charcoal-root grain-overlay">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+        <div class="text-center mb-14" data-animate>
+          <h2 class="text-4xl md:text-5xl text-burnished-brass mb-4">Let's Work Together</h2>
+          <p class="text-soft-linen/80 text-base prose-constrained mx-auto">Whether you're looking for a personal sound session, a corporate wellness experience, or a collaborative retreat — I'd love to hear from you.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 md:gap-16" data-animate>
+          <!-- Contact Form -->
+          <form class="space-y-6" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Sent — thank you!'; this.querySelector('button').disabled=true;">
+            <div>
+              <label for="name" class="block font-sans text-xs font-medium uppercase tracking-[0.1em] text-soft-linen/70 mb-2">Name</label>
+              <input type="text" id="name" name="name" required autocomplete="name" class="form-input w-full bg-transparent border border-stone/40 text-ritual-cream px-4 py-3 font-body text-base rounded-sm placeholder:text-stone/40" placeholder="Your name">
+            </div>
+            <div>
+              <label for="email" class="block font-sans text-xs font-medium uppercase tracking-[0.1em] text-soft-linen/70 mb-2">Email</label>
+              <input type="email" id="email" name="email" required autocomplete="email" class="form-input w-full bg-transparent border border-stone/40 text-ritual-cream px-4 py-3 font-body text-base rounded-sm placeholder:text-stone/40" placeholder="your@email.com">
+            </div>
+            <div>
+              <label for="message" class="block font-sans text-xs font-medium uppercase tracking-[0.1em] text-soft-linen/70 mb-2">Message</label>
+              <textarea id="message" name="message" rows="5" required class="form-input w-full bg-transparent border border-stone/40 text-ritual-cream px-4 py-3 font-body text-base rounded-sm placeholder:text-stone/40 resize-none" placeholder="Tell me about what you're looking for..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full bg-burnished-brass text-deep-earth font-sans text-sm font-medium uppercase tracking-[0.1em] px-8 py-4 rounded-sm">
+              Send Message
+            </button>
+          </form>
+
+          <!-- Contact Details -->
+          <div class="flex flex-col justify-center space-y-8">
+            <div>
+              <p class="font-sans text-xs font-medium uppercase tracking-[0.1em] text-soft-linen/50 mb-2">Email</p>
+              <a href="mailto:Bracken.roots7@gmail.com" class="nav-link text-ritual-cream font-body text-lg hover:text-burnished-brass transition-colors duration-200">Bracken.roots7@gmail.com</a>
+            </div>
+            <div>
+              <p class="font-sans text-xs font-medium uppercase tracking-[0.1em] text-soft-linen/50 mb-2">Phone</p>
+              <a href="tel:+4407596086607" class="nav-link text-ritual-cream font-body text-lg hover:text-burnished-brass transition-colors duration-200">+44 07596 086607</a>
+            </div>
+            <div>
+              <p class="font-sans text-xs font-medium uppercase tracking-[0.1em] text-soft-linen/50 mb-2">Instagram</p>
+              <div class="space-y-1">
+                <a href="#" class="nav-link block text-ritual-cream font-body text-lg hover:text-burnished-brass transition-colors duration-200">@sacred.sound.sister</a>
+                <a href="#" class="nav-link block text-soft-linen/60 font-body text-base hover:text-burnished-brass transition-colors duration-200">@brackenroots</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-charcoal-root py-12 border-t border-stone/20">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 text-center">
+      <img src="brand_assets/logo-triquetra.png" alt="" class="h-10 mx-auto mb-4 opacity-30" style="filter: brightness(3) saturate(0.3);" aria-hidden="true">
+      <p class="font-sans text-xs text-stone/50 tracking-wider">&copy; 2026 Sacred Sound Sister. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // === Header scroll effect ===
+    const header = document.getElementById('header');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y > 80) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+      lastScroll = y;
+    }, { passive: true });
+
+    // === Mobile nav ===
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    menuToggle.addEventListener('click', () => {
+      mobileNav.classList.add('open');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeNav = () => {
+      mobileNav.classList.remove('open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    };
+
+    menuClose.addEventListener('click', closeNav);
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', closeNav);
+    });
+
+    // === Scroll reveals ===
+    const observerOptions = { threshold: 0.12 };
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Respect reduced motion
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('[data-animate], [data-animate-stagger]').forEach(el => {
+        revealObserver.observe(el);
+      });
+    } else {
+      document.querySelectorAll('[data-animate], [data-animate-stagger]').forEach(el => {
+        el.classList.add('revealed');
+      });
+    }
+  </script>
+
+</body>
+</html>
