@@ -1,19 +1,35 @@
 {
-  "name": "bracks-website",
+  "name": "sacred-sound-sister",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "seed": "tsx src/seed.ts",
+    "generate:types": "payload generate:types",
+    "generate:schema": "payload generate:db-schema"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "express": "^5.2.1",
-    "puppeteer": "^24.39.1"
+    "@payloadcms/db-vercel-postgres": "^3.35.0",
+    "@payloadcms/next": "^3.35.0",
+    "@payloadcms/richtext-lexical": "^3.35.0",
+    "@payloadcms/storage-vercel-blob": "^3.35.0",
+    "next": "15.4.11",
+    "payload": "^3.35.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }
