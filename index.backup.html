@@ -168,9 +168,6 @@
 
     /* ===== HEADER ===== */
     .header-scrolled { background: rgba(250,247,242,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-    .header-scrolled .header-logo-white { opacity: 0; }
-    .header-scrolled .header-logo-brown { opacity: 1; }
-    .header-scrolled .header-text { opacity: 1; }
 
     /* ===== MOBILE NAV ===== */
     .mobile-nav { transform: translateX(100%); transition: transform 300ms var(--easing-settle); }
@@ -182,24 +179,6 @@
 
     /* ===== PROSE CONSTRAINT ===== */
     .prose-constrained { max-width: 70ch; }
-
-    /* ===== LABS: BREATHING LOGO ===== */
-    @keyframes subtlePulse {
-      0%, 100% { opacity: 0.85; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.03); }
-    }
-    .logo-breathe { animation: subtlePulse 4s ease-in-out infinite; }
-    @media (prefers-reduced-motion: reduce) {
-      .logo-breathe { animation: none; }
-    }
-
-    /* ===== LABS: WATERMARK ===== */
-    .watermark-bg {
-      position: absolute;
-      pointer-events: none;
-      opacity: 0.04;
-      z-index: 0;
-    }
   </style>
 </head>
 <body>
@@ -214,9 +193,8 @@
     <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-18 md:h-22">
       <!-- Logo -->
       <a href="#" class="relative z-10 flex items-center gap-3">
-        <img src="brand_assets/cropped/white logo with sun.svg" alt="Sacred Sound Sister" class="header-logo-white h-12 md:h-14 w-auto transition-opacity duration-300">
-        <img src="brand_assets/cropped/brown logo with sun.svg" alt="Sacred Sound Sister" class="header-logo-brown h-12 md:h-14 w-auto absolute left-0 opacity-0 transition-opacity duration-300">
-        <span class="header-text hidden md:block font-display text-lg font-medium tracking-tight text-deep-earth opacity-0 transition-opacity duration-300">Sacred Sound Sister</span>
+        <img src="brand_assets/logo-triquetra.png" alt="Sacred Sound Sister" class="h-10 md:h-12 w-auto">
+        <span class="hidden md:block font-display text-lg font-medium tracking-tight text-deep-earth">Sacred Sound Sister</span>
       </a>
 
       <!-- Desktop Nav -->
@@ -267,10 +245,6 @@
 
       <!-- Content -->
       <div class="relative z-10 flex h-full flex-col items-center justify-end pb-16 md:pb-24 text-center px-6">
-        <!-- Brand logo mark with breathing animation -->
-        <div class="hero-heading mb-6">
-          <img src="brand_assets/cropped/white logo with sun.svg" alt="" class="logo-breathe h-20 md:h-28 lg:h-36 w-auto mx-auto" aria-hidden="true">
-        </div>
         <h1 class="hero-heading font-display text-5xl md:text-7xl lg:text-[5.5rem] font-light text-ritual-cream">
           Sacred Sound Sister
         </h1>
@@ -294,9 +268,6 @@
     <section id="about" class="relative py-20 md:py-30 overflow-hidden grain-overlay">
       <!-- Radial glow -->
       <div class="absolute top-1/2 left-1/4 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" style="background: radial-gradient(circle, rgba(184,151,106,0.06) 0%, transparent 70%);"></div>
-
-      <!-- Yoga woman watermark -->
-      <img src="brand_assets/cropped/yoga women with logo.svg" alt="" class="watermark-bg hidden md:block right-0 bottom-0 h-[500px] lg:h-[600px] w-auto" aria-hidden="true">
 
       <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10" data-animate>
         <p class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe mb-4">Meet Bracken</p>
@@ -346,54 +317,21 @@
             <h3 class="font-display text-2xl text-deep-earth mb-6">Group Experiences</h3>
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Crystal singing bowl icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-                  <ellipse cx="18" cy="24" rx="13" ry="5" />
-                  <path d="M5 24c0-10 5.5-18 13-18s13 8 13 18" />
-                  <path d="M13 10c1.5 2 3 2.5 5 2.5s3.5-.5 5-2.5" opacity="0.4" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Sacred Sound Journey</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Immersive sound bath using rattles, Tibetan bowls, gongs, crystal singing bowls, flute, and chimes.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1–1.5 hours</span>
               </div>
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Voice / sound wave icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round">
-                  <path d="M6 18c3-6 6-10 12-10" />
-                  <path d="M6 18c3 6 6 10 12 10" />
-                  <path d="M22 12c2 1.5 3 3.5 3 6s-1 4.5-3 6" opacity="0.6" />
-                  <path d="M26 9c3 2.5 4.5 5.5 4.5 9s-1.5 6.5-4.5 9" opacity="0.35" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Sound Bath & Song</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Sound bath with live vocals, blending voice and instruments to deepen relaxation and presence.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1 hour</span>
               </div>
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Circle of people icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round">
-                  <circle cx="18" cy="7" r="2.5" />
-                  <circle cx="28" cy="14" r="2.5" />
-                  <circle cx="26" cy="26" r="2.5" />
-                  <circle cx="10" cy="26" r="2.5" />
-                  <circle cx="8" cy="14" r="2.5" />
-                  <path d="M18 10c4 1 7 3 9.5 5.5" opacity="0.3" />
-                  <path d="M27 17c0 4-1 6.5-2 8" opacity="0.3" />
-                  <path d="M24.5 27.5c-3 1.5-7 2-11 0" opacity="0.3" />
-                  <path d="M9 25c-1-2-1.5-4.5-1-7.5" opacity="0.3" />
-                  <path d="M9 13c2-2 5-3.5 8-4.5" opacity="0.3" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Sound & Sharing Circle</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Sound bath followed by guided connection exercises and sharing for personal reflection and communal connection.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">2 hours</span>
               </div>
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Flame / heat wave icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 4c-1 5-6 8-6 14a6 6 0 0012 0c0-2-.5-3.5-2-5 .5 2 0 4-2 5.5-1-2-2-3-2-5.5-1 2-3 3.5-3 5.5a3 3 0 006 0" opacity="0.7"/>
-                  <path d="M10 30c1 1.5 3 3 5 3.5" opacity="0.4" />
-                  <path d="M26 30c-1 1.5-3 3-5 3.5" opacity="0.4" />
-                  <path d="M7 30h22" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Sauna Sound Rituals</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Multi-sensory journey with guided sound in sauna heat, cold plunging, and elemental meditation across four sets.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">Multi-session</span>
@@ -406,30 +344,11 @@
             <h3 class="font-display text-2xl text-deep-earth mb-6">Corporate Wellness</h3>
             <div class="grid sm:grid-cols-2 gap-5">
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Brain calm wave icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 16c-2-1-3-3-3-5.5 0-3 2-5.5 5-5.5 1 0 2 .3 2.5 1C17 4.5 18 4 19.5 4c3 0 5 2.5 5 5.5 0 2.5-1 4.5-3 5.5" />
-                  <path d="M12 16c-2 1-3 3-3 5s1 4 3 5" />
-                  <path d="M24 16c2 1 3 3 3 5s-1 4-3 5" />
-                  <path d="M12 26c2 1 4 1.5 6 1.5s4-.5 6-1.5" />
-                  <path d="M8 30c4-1 7-1 10-1s6 0 10 1" opacity="0.4" />
-                  <path d="M10 33c4-1 6-1 8-1s4 0 8 1" opacity="0.25" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Nervous System Reset</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Private sound bath workshop held onsite or at a local venue, designed to support relaxation, focus, and stress relief.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1–2 hours</span>
               </div>
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Leaf / fern icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 32V12" />
-                  <path d="M18 12c-2-4-7-7-13-8 1 6 4 10 8 12" opacity="0.7" />
-                  <path d="M18 12c2-4 7-7 13-8-1 6-4 10-8 12" opacity="0.7" />
-                  <path d="M18 18c-2-2-5-4-9-4.5 .5 3 2 5.5 5 6.5" opacity="0.5" />
-                  <path d="M18 18c2-2 5-4 9-4.5-.5 3-2 5.5-5 6.5" opacity="0.5" />
-                  <path d="M18 24c-1.5-1-3.5-2-6-2 .5 2 1.5 3.5 3.5 4" opacity="0.35" />
-                  <path d="M18 24c1.5-1 3.5-2 6-2-.5 2-1.5 3.5-3.5 4" opacity="0.35" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Nature Connection Retreat</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Glamping retreats combining restorative sound baths, sauna and cold plunge, firemaking, organic meals, and guided nature walks.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1–2 days</span>
@@ -442,13 +361,6 @@
             <h3 class="font-display text-2xl text-deep-earth mb-6">Individual Sessions</h3>
             <div class="grid sm:grid-cols-2 gap-5">
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Single bowl with mallet icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-                  <ellipse cx="16" cy="26" rx="11" ry="4.5" />
-                  <path d="M5 26c0-7 4-13 11-13s11 6 11 13" />
-                  <line x1="28" y1="8" x2="20" y2="20" />
-                  <circle cx="29" cy="7" r="2" fill="#9B8B7A" opacity="0.2" stroke="#9B8B7A" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Bespoke 1:1 Sound Healing</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Personalised sound bath on a cosy houseboat or in your home. Sessions begin with a welcome drink and may include guided meditation, body sound work, and optional tarot readings.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">1–3 hours</span>
@@ -461,32 +373,11 @@
             <h3 class="font-display text-2xl text-deep-earth mb-6">Immersive Rituals & Retreats</h3>
             <div class="grid sm:grid-cols-2 gap-5">
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Sun / candle icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="18" cy="16" r="6" />
-                  <line x1="18" y1="4" x2="18" y2="7" />
-                  <line x1="18" y1="25" x2="18" y2="28" />
-                  <line x1="7" y1="16" x2="10" y2="16" />
-                  <line x1="26" y1="16" x2="29" y2="16" />
-                  <line x1="10.2" y1="8.2" x2="12.3" y2="10.3" opacity="0.6" />
-                  <line x1="23.7" y1="21.7" x2="25.8" y2="23.8" opacity="0.6" />
-                  <line x1="25.8" y1="8.2" x2="23.7" y2="10.3" opacity="0.6" />
-                  <line x1="12.3" y1="21.7" x2="10.2" y2="23.8" opacity="0.6" />
-                  <path d="M12 32h12" opacity="0.4" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Sound Sanctuary: Day Retreat</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Beginning with a cacao or tea ceremony. Includes a 2-hour sound bath with guided meditation, journalling, gentle movement, and a sharing circle.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">5 hours</span>
               </div>
               <div class="card-interactive bg-ritual-cream p-6 rounded-sm shadow-brand-sm cursor-pointer" tabindex="0">
-                <!-- Crescent moon icon -->
-                <svg class="mb-3" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#9B8B7A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M24 6c-8 0-14 6-14 14s6 14 14 14c-10 0-18-6.3-18-14S14 6 24 6z" />
-                  <circle cx="22" cy="8" r="0.8" fill="#9B8B7A" opacity="0.4" />
-                  <circle cx="28" cy="12" r="0.6" fill="#9B8B7A" opacity="0.3" />
-                  <circle cx="26" cy="17" r="0.5" fill="#9B8B7A" opacity="0.25" />
-                  <circle cx="30" cy="8" r="0.7" fill="#9B8B7A" opacity="0.2" />
-                </svg>
                 <h4 class="font-display text-xl text-deep-earth mb-2">Sound Bath & Moon Ceremony</h4>
                 <p class="text-stone text-sm leading-relaxed mb-3">Lunar-aligned ritual with cacao ceremony, 1.5-hour sound bath, guided meditation, journalling, and movement. Releasing on the full moon, setting intentions with the new.</p>
                 <span class="font-sans text-xs text-bracken-taupe uppercase tracking-wider">3 hours</span>
@@ -507,9 +398,6 @@
 
     <!-- ===== TESTIMONIALS ===== -->
     <section id="testimonials" class="relative py-20 md:py-30 grain-overlay">
-      <!-- Fern watermark -->
-      <img src="brand_assets/cropped/bracken roots name text with plant.svg" alt="" class="watermark-bg left-6 top-1/2 -translate-y-1/2 h-[300px] w-auto opacity-[0.06]" aria-hidden="true">
-
       <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
         <div class="text-center mb-14" data-animate>
           <p class="font-sans text-xs font-medium uppercase tracking-[0.15em] text-bracken-taupe mb-4">Kind Words</p>
@@ -521,7 +409,6 @@
           <!-- Testimonial 1 -->
           <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
             <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
-            <img src="brand_assets/cropped/brown logo no sun.svg" alt="" class="absolute bottom-4 right-4 h-10 w-10 opacity-[0.07] pointer-events-none select-none" aria-hidden="true">
             <blockquote class="relative z-10">
               <p class="font-body text-stone text-base italic leading-relaxed mb-6">Bracken works with sound with such reverence and she fiercely protects the space — I could feel a deep surrender in the room which was a direct reflection of the safety she cultivates. I absolutely recommend her!</p>
               <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Anonymous</footer>
@@ -531,7 +418,6 @@
           <!-- Testimonial 2 -->
           <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
             <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
-            <img src="brand_assets/cropped/brown logo no sun.svg" alt="" class="absolute bottom-4 right-4 h-10 w-10 opacity-[0.07] pointer-events-none select-none" aria-hidden="true">
             <blockquote class="relative z-10">
               <p class="font-body text-stone text-base italic leading-relaxed mb-6">Bracken's sound bath was incredible! She's an expert space holder, who creates safety and trust in her craft. She integrated sound within a breathwork journey, and I found the whole experience to be deep, immersive and healing.</p>
               <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Anonymous</footer>
@@ -541,7 +427,6 @@
           <!-- Testimonial 3 -->
           <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
             <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
-            <img src="brand_assets/cropped/brown logo no sun.svg" alt="" class="absolute bottom-4 right-4 h-10 w-10 opacity-[0.07] pointer-events-none select-none" aria-hidden="true">
             <blockquote class="relative z-10">
               <p class="font-body text-stone text-base italic leading-relaxed mb-6">I participated in one of Bracken's soundbaths after a day full of activities and it was simply the most lovely reset. She creatively weaves together different instruments and sound frequencies which took me into a deep relaxation. It was a beautiful experience.</p>
               <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Anonymous</footer>
@@ -551,7 +436,6 @@
           <!-- Testimonial 4 -->
           <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
             <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
-            <img src="brand_assets/cropped/brown logo no sun.svg" alt="" class="absolute bottom-4 right-4 h-10 w-10 opacity-[0.07] pointer-events-none select-none" aria-hidden="true">
             <blockquote class="relative z-10">
               <p class="font-body text-stone text-base italic leading-relaxed mb-6">My experience in this session is so incredibly special to me because I found a level of healing I have never seen before. Holly led the session whilst catering to every level of experience. The session was paired with a beautiful sound healing session led by Bracken and these two practises worked so well together.</p>
               <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Kate Luke</footer>
@@ -561,7 +445,6 @@
           <!-- Testimonial 5 -->
           <div class="flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[35vw] bg-ritual-cream p-8 md:p-10 rounded-sm shadow-brand border border-soft-linen relative">
             <span class="absolute -top-6 -left-2 font-display text-[100px] leading-none text-soft-linen select-none pointer-events-none" aria-hidden="true">&ldquo;</span>
-            <img src="brand_assets/cropped/brown logo no sun.svg" alt="" class="absolute bottom-4 right-4 h-10 w-10 opacity-[0.07] pointer-events-none select-none" aria-hidden="true">
             <blockquote class="relative z-10">
               <p class="font-body text-stone text-base italic leading-relaxed mb-6">Holly's breathwork was beautiful and intense!! There was so much powerful energy being created in that room. We had beautiful sounds from the amazing Bracken which soothed the soul and made me smile. It is magical and profound — it gets to the root of your trauma and releases it in a beautiful way.</p>
               <footer class="font-sans text-xs uppercase tracking-[0.1em] text-bracken-taupe">— Louise Rowley</footer>
@@ -591,17 +474,17 @@
           <div class="image-treated aspect-square rounded-sm overflow-hidden">
             <img src="brand_assets/bracken-candles.jpg" alt="Sound healing session with candles and singing bowls" loading="lazy">
           </div>
-          <div class="aspect-square rounded-sm overflow-hidden bg-soft-linen flex items-center justify-center">
-            <img src="brand_assets/cropped/brown logo no sun.svg" alt="Sound healing retreat" class="h-16 w-16 opacity-15" loading="lazy">
+          <div class="image-treated aspect-square rounded-sm overflow-hidden">
+            <img src="https://placehold.co/600x600/F0E8DC/9B8B7A?text=Retreat" alt="Sound healing retreat" loading="lazy">
           </div>
-          <div class="aspect-square rounded-sm overflow-hidden bg-warm-sand flex items-center justify-center">
-            <img src="brand_assets/cropped/brown logo with sun.svg" alt="Festival sound bath" class="h-20 w-20 opacity-10" loading="lazy">
+          <div class="image-treated aspect-square rounded-sm overflow-hidden">
+            <img src="https://placehold.co/600x600/E8DFD3/9B8B7A?text=Festival" alt="Festival sound bath" loading="lazy">
           </div>
           <div class="image-treated aspect-[4/3] rounded-sm overflow-hidden md:col-span-2">
             <img src="brand_assets/bracken-flute.jpg" alt="Bracken performing at an event" loading="lazy">
           </div>
-          <div class="aspect-square rounded-sm overflow-hidden bg-soft-linen flex items-center justify-center">
-            <img src="brand_assets/cropped/brown logo no sun.svg" alt="Corporate wellness event" class="h-16 w-16 opacity-15" loading="lazy">
+          <div class="image-treated aspect-square rounded-sm overflow-hidden">
+            <img src="https://placehold.co/600x600/F0E8DC/9B8B7A?text=Corporate" alt="Corporate wellness event" loading="lazy">
           </div>
         </div>
 
@@ -627,9 +510,6 @@
 
     <!-- ===== CONTACT ===== -->
     <section id="contact" class="relative py-20 md:py-30 bg-charcoal-root grain-overlay">
-      <!-- White logo watermark -->
-      <img src="brand_assets/cropped/white logo no sun.svg" alt="" class="watermark-bg right-10 top-1/2 -translate-y-1/2 h-[300px] lg:h-[400px] w-auto hidden md:block" aria-hidden="true">
-
       <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
         <div class="text-center mb-14" data-animate>
           <h2 class="text-4xl md:text-5xl text-burnished-brass mb-4">Let's Work Together</h2>
@@ -683,10 +563,16 @@
   <!-- ===== FOOTER ===== -->
   <footer class="bg-charcoal-root py-12 border-t border-stone/20">
     <div class="max-w-7xl mx-auto px-6 md:px-10 text-center">
-      <img src="brand_assets/cropped/white logo with sun.svg" alt="" class="h-16 mx-auto mb-5 opacity-40" aria-hidden="true">
+      <img src="brand_assets/logo-triquetra.png" alt="" class="h-10 mx-auto mb-4 opacity-30" style="filter: brightness(3) saturate(0.3);" aria-hidden="true">
       <p class="font-sans text-xs text-stone/50 tracking-wider">&copy; 2026 Sacred Sound Sister. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- ===== LABS BUTTON ===== -->
+  <a href="labs.html" class="fixed bottom-6 right-6 z-[100] bg-burnished-brass text-deep-earth font-sans text-xs font-medium uppercase tracking-[0.1em] px-5 py-3 rounded-full shadow-brand-lg hover:shadow-[0_10px_40px_rgba(184,151,106,0.3)] transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M6 6h4M6 8h4M6 10h2"/></svg>
+    Labs
+  </a>
 
   <!-- ===== SCRIPTS ===== -->
   <script>
