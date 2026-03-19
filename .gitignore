@@ -4,3 +4,6 @@ temporary screenshots/
 .DS_Store
 Thumbs.db
 .worktrees/
+.next/
+public/media/
+src/payload-types.ts
