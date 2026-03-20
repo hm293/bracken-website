@@ -1,5 +1,7 @@
 import { getPayload } from 'payload'
 import config from './payload.config'
+import path from 'path'
+import fs from 'fs'
 
 const offerings = [
   { title: 'Sacred Sound Journey', description: 'Immersive sound bath using rattles, Tibetan bowls, gongs, crystal singing bowls, flute, and chimes.', duration: '1–1.5 hours', category: 'group' as const, icon: 'crystal-bowl' as const, sortOrder: 1 },
@@ -21,6 +23,19 @@ const testimonials = [
   { quote: "Holly's breathwork was beautiful and intense!! There was so much powerful energy being created in that room. We had beautiful sounds from the amazing Bracken which soothed the soul and made me smile. It is magical and profound — it gets to the root of your trauma and releases it in a beautiful way.", attribution: 'Louise Rowley', sortOrder: 5 },
 ]
 
+// Gallery images: 9 photos mapped to the grid pattern (square, wide, square, wide, square, square, square, wide, square)
+const galleryImages = [
+  { file: 'IMG_8082.JPG', alt: 'Sound healing session with singing bowls', aspectRatio: 'square' as const, sortOrder: 1 },
+  { file: 'IMG_8055.JPG', alt: 'Group sound bath experience', aspectRatio: 'wide' as const, sortOrder: 2 },
+  { file: 'IMG_8073.JPG', alt: 'Crystal singing bowls arrangement', aspectRatio: 'square' as const, sortOrder: 3 },
+  { file: 'IMG_0341.JPG', alt: 'Outdoor sound healing retreat', aspectRatio: 'wide' as const, sortOrder: 4 },
+  { file: 'IMG_5749.JPG', alt: 'Bracken with Tibetan bowls', aspectRatio: 'square' as const, sortOrder: 5 },
+  { file: 'IMG_7831.JPG', alt: 'Sacred sound ceremony', aspectRatio: 'square' as const, sortOrder: 6 },
+  { file: 'IMG_9659.JPG', alt: 'Evening sound bath gathering', aspectRatio: 'square' as const, sortOrder: 7 },
+  { file: 'IMG_2318.JPG', alt: 'Nature connection retreat', aspectRatio: 'wide' as const, sortOrder: 8 },
+  { file: 'IMG_8705.JPG', alt: 'Sauna sound ritual', aspectRatio: 'square' as const, sortOrder: 9 },
+]
+
 async function seed() {
   const payload = await getPayload({ config })
 
@@ -32,6 +47,39 @@ async function seed() {
   console.log('Seeding testimonials...')
   for (const testimonial of testimonials) {
     await payload.create({ collection: 'testimonials', data: testimonial })
+  }
+
+  console.log('Uploading gallery images...')
+  const picsDir = path.resolve(process.cwd(), 'public/brand_assets/Pics')
+  for (const img of galleryImages) {
+    const filePath = path.join(picsDir, img.file)
+    if (!fs.existsSync(filePath)) {
+      console.warn(`  Skipping ${img.file} — file not found`)
+      continue
+    }
+
+    const fileBuffer = fs.readFileSync(filePath)
+    const media = await payload.create({
+      collection: 'media',
+      data: { alt: img.alt },
+      file: {
+        data: fileBuffer,
+        mimetype: 'image/jpeg',
+        name: img.file,
+        size: fileBuffer.length,
+      },
+    })
+
+    await payload.create({
+      collection: 'gallery',
+      data: {
+        image: media.id,
+        alt: img.alt,
+        aspectRatio: img.aspectRatio,
+        sortOrder: img.sortOrder,
+      },
+    })
+    console.log(`  Uploaded ${img.file}`)
   }
 
   console.log('Updating site settings...')

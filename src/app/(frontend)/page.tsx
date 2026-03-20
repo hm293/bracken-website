@@ -84,33 +84,33 @@ export default async function HomePage() {
   const aboutHtml = defaultAboutHtml
 
   const offerings = data?.offerings?.length
-    ? data.offerings.map((o: Record<string, unknown>) => ({
+    ? data.offerings.map((o) => ({
         id: String(o.id),
-        title: String(o.title || ''),
-        description: String(o.description || ''),
-        duration: String(o.duration || ''),
-        category: String(o.category || ''),
-        icon: String(o.icon || 'crystal-bowl'),
-        sortOrder: Number(o.sortOrder || 0),
+        title: o.title || '',
+        description: o.description || '',
+        duration: o.duration || '',
+        category: o.category || '',
+        icon: o.icon || 'crystal-bowl',
+        sortOrder: o.sortOrder || 0,
       }))
     : defaultOfferings
 
   const testimonials = data?.testimonials?.length
-    ? data.testimonials.map((t: Record<string, unknown>) => ({
+    ? data.testimonials.map((t) => ({
         id: String(t.id),
-        quote: String(t.quote || ''),
-        attribution: String(t.attribution || ''),
-        sortOrder: Number(t.sortOrder || 0),
+        quote: t.quote || '',
+        attribution: t.attribution || '',
+        sortOrder: t.sortOrder || 0,
       }))
     : defaultTestimonials
 
   const galleryImages = data?.gallery?.length
-    ? data.gallery.map((g: Record<string, unknown>) => ({
+    ? data.gallery.map((g) => ({
         id: String(g.id),
-        alt: String(g.alt || ''),
-        aspectRatio: (g.aspectRatio as 'square' | 'wide' | 'tall') || 'square',
-        sortOrder: Number(g.sortOrder || 0),
-        image: typeof g.image === 'object' && g.image ? (g.image as { url?: string }) : { url: '' },
+        alt: g.alt || '',
+        aspectRatio: g.aspectRatio || 'square',
+        sortOrder: g.sortOrder || 0,
+        image: typeof g.image === 'object' && g.image ? { url: (g.image as { url?: string }).url } : { url: '' },
       }))
     : []
 
