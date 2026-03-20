@@ -7,3 +7,6 @@ Thumbs.db
 .next/
 public/media/
 src/payload-types.ts
+.vercel
+.env*.local
+.env.production
