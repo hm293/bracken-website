@@ -274,6 +274,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .logo-breathe { animation: none; }
 }
 
+/* ===== GALLERY ITEMS ===== */
+.gallery-item {
+  transition: transform var(--duration-hover) ease-out, box-shadow var(--duration-hover) ease-out;
+  box-shadow: 0 2px 8px rgba(44,36,30,0.06);
+}
+.gallery-item:hover {
+  box-shadow: 0 8px 30px rgba(155,139,122,0.18), 0 4px 12px rgba(44,36,30,0.06);
+}
+
 /* ===== WATERMARK ===== */
 .watermark-bg {
   position: absolute;

@@ -18,11 +18,33 @@ interface GalleryProps {
   images: GalleryImage[]
 }
 
-// Grid pattern: 3 columns on desktop with mixed sizes
-// Row 1: wide (col-span-2), tall (row-span-2)
-// Row 2: square, square
-// Row 3: square, wide (col-span-2)
-// This creates a dynamic bento-style layout that showcases photos larger
+/*
+ * Bento gallery driven by each image's CMS aspectRatio field.
+ * Desktop: 6-column grid — wide spans 4 cols (16:9), tall takes 2 cols
+ * with a portrait crop (3:4), squares take 2 cols. Paired as:
+ *   wide(4) + tall(2) = 6  |  square(2) + square(2) + square(2) = 6
+ * Mobile: single column with 4:3 crops so each image breathes.
+ */
+
+function getGridClasses(aspectRatio: string): string {
+  switch (aspectRatio) {
+    case 'wide':
+      return 'md:col-span-4 aspect-[4/3] md:aspect-[16/9]'
+    case 'tall':
+      return 'md:col-span-2 aspect-[4/3] md:aspect-[3/4]'
+    default:
+      return 'md:col-span-2 aspect-[4/3] md:aspect-square'
+  }
+}
+
+function getSizes(aspectRatio: string): string {
+  switch (aspectRatio) {
+    case 'wide':
+      return '(max-width: 768px) 100vw, 66vw'
+    default:
+      return '(max-width: 768px) 100vw, 33vw'
+  }
+}
 
 export function Gallery({ images }: GalleryProps) {
   const sorted = [...images].sort((a, b) => a.sortOrder - b.sortOrder)
@@ -39,31 +61,30 @@ export function Gallery({ images }: GalleryProps) {
 
         <ScrollReveal
           type="animate-stagger"
-          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5"
+          className="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-5"
         >
-          {sorted.map((img, i) => {
-            // Bento layout pattern: first image wide, every 5th image wide
-            const isFeature = i === 0 || i === 5
-            const isTall = i === 2 || i === 7
-
-            let className = 'aspect-square'
-            if (isFeature) className = 'md:col-span-2 aspect-[16/9]'
-            if (isTall) className = 'md:row-span-2 aspect-square md:aspect-auto md:h-full'
+          {sorted.map((img) => {
+            const gridClasses = getGridClasses(img.aspectRatio)
 
             return (
               <div
                 key={img.id}
-                className={`relative overflow-hidden rounded-sm ${className}`}
+                className={`gallery-item relative overflow-hidden rounded-lg ${gridClasses}`}
               >
                 <Image
                   src={img.image?.url || ''}
                   alt={img.alt}
                   fill
-                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  className="object-cover transition-all duration-700 ease-out hover:scale-[1.03]"
                   style={{ objectPosition: `${img.focalX}% ${img.focalY}%` }}
-                  sizes={isFeature ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 50vw, 33vw'}
+                  sizes={getSizes(img.aspectRatio)}
                   loading="lazy"
                 />
+                {/* Warm tonal overlay to unify colour temperature across images */}
+                <div className="absolute inset-0 bg-amber-900/[0.04] mix-blend-multiply pointer-events-none" />
+                {/* Subtle vignette for depth */}
+                <div className="absolute inset-0 pointer-events-none"
+                  style={{ boxShadow: 'inset 0 0 60px rgba(44,36,30,0.08)' }} />
               </div>
             )
           })}
