@@ -1,5 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
+export const dynamic = 'force-dynamic'
+
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { WaveDivider } from '@/components/ui/WaveDivider'
