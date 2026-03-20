@@ -184,6 +184,7 @@ Based on this session, here's the full deployment checklist:
 
 1. **Duplicate seed data** — offerings and testimonials were seeded twice in the production DB. Clean up via admin panel or script.
 2. **Seed script URL fixup** — needs to be built into the seed flow, not a separate manual step.
-3. **Hero and About images still hardcoded** — CMS fields exist but components don't use them yet.
-4. **Type casts in page.tsx** — `focalX`/`focalY` use `as unknown as` casts. Will resolve once payload-types.ts is regenerated on next build.
-5. **@vercel/postgres deprecation** — monitor for a Payload native Neon adapter.
+3. **Type casts in page.tsx** — `focalX`/`focalY` use `as unknown as` casts. Will resolve once payload-types.ts is regenerated on next build.
+4. **@vercel/postgres deprecation** — monitor for a Payload native Neon adapter.
+5. **Gallery layout** — "Past Events & Residencies" section needs redesign to better showcase high-quality photos.
+6. **"Built by Deftly" footer link** — add to all client sites once deftly.io (or equivalent) is live. Standard agency practice, free marketing.
