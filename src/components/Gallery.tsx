@@ -5,6 +5,8 @@ interface GalleryImage {
   id: string
   alt: string
   aspectRatio: 'square' | 'wide' | 'tall'
+  focalX: number
+  focalY: number
   sortOrder: number
   image: {
     url?: string
@@ -16,16 +18,11 @@ interface GalleryProps {
   images: GalleryImage[]
 }
 
-// The gallery uses a specific grid pattern from the original site:
-// Row 1: square, wide (col-span-2), square
-// Row 2: wide (col-span-2), square, square
-// Row 3: square, wide (col-span-2), square
-// This creates a visually interesting masonry-like layout
-const gridPattern = [
-  'square', 'wide', 'square',
-  'wide', 'square', 'square',
-  'square', 'wide', 'square',
-]
+// Grid pattern: 3 columns on desktop with mixed sizes
+// Row 1: wide (col-span-2), tall (row-span-2)
+// Row 2: square, square
+// Row 3: square, wide (col-span-2)
+// This creates a dynamic bento-style layout that showcases photos larger
 
 export function Gallery({ images }: GalleryProps) {
   const sorted = [...images].sort((a, b) => a.sortOrder - b.sortOrder)
@@ -42,23 +39,29 @@ export function Gallery({ images }: GalleryProps) {
 
         <ScrollReveal
           type="animate-stagger"
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
+          className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5"
         >
           {sorted.map((img, i) => {
-            const pattern = gridPattern[i % gridPattern.length]
-            const isWide = pattern === 'wide'
+            // Bento layout pattern: first image wide, every 5th image wide
+            const isFeature = i === 0 || i === 5
+            const isTall = i === 2 || i === 7
+
+            let className = 'aspect-square'
+            if (isFeature) className = 'md:col-span-2 aspect-[16/9]'
+            if (isTall) className = 'md:row-span-2 aspect-square md:aspect-auto md:h-full'
+
             return (
               <div
                 key={img.id}
-                className={`image-treated aspect-square rounded-sm overflow-hidden ${
-                  isWide ? 'md:col-span-2 md:aspect-[2/1]' : ''
-                }`}
+                className={`relative overflow-hidden rounded-sm ${className}`}
               >
                 <Image
                   src={img.image?.url || ''}
                   alt={img.alt}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  style={{ objectPosition: `${img.focalX}% ${img.focalY}%` }}
+                  sizes={isFeature ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 50vw, 33vw'}
                   loading="lazy"
                 />
               </div>

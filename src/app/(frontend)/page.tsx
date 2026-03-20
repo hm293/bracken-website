@@ -111,6 +111,8 @@ export default async function HomePage() {
         id: String(g.id),
         alt: g.alt || '',
         aspectRatio: g.aspectRatio || 'square',
+        focalX: (g as unknown as { focalX?: number }).focalX ?? 50,
+        focalY: (g as unknown as { focalY?: number }).focalY ?? 50,
         sortOrder: g.sortOrder || 0,
         image: typeof g.image === 'object' && g.image ? { url: (g.image as { url?: string }).url } : { url: '' },
       }))

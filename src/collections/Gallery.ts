@@ -33,6 +33,28 @@ export const Gallery: CollectionConfig = {
       ],
     },
     {
+      name: 'focalX',
+      type: 'number',
+      min: 0,
+      max: 100,
+      defaultValue: 50,
+      admin: {
+        description: 'Horizontal focal point (0 = left, 50 = centre, 100 = right)',
+        step: 5,
+      },
+    },
+    {
+      name: 'focalY',
+      type: 'number',
+      min: 0,
+      max: 100,
+      defaultValue: 50,
+      admin: {
+        description: 'Vertical focal point (0 = top, 50 = centre, 100 = bottom)',
+        step: 5,
+      },
+    },
+    {
       name: 'sortOrder',
       type: 'number',
       required: true,
