@@ -2,6 +2,16 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 export const dynamic = 'force-dynamic'
 
+const BLOB_BASE = 'https://ex9ag8oxvgizhqbr.public.blob.vercel-storage.com'
+
+function resolveMediaUrl(url?: string): string | undefined {
+  if (!url) return undefined
+  if (url.startsWith('https://')) return url
+  // Local Payload paths like /api/media/file/IMG.jpg → blob URL
+  const filename = url.split('/').pop()
+  return filename ? `${BLOB_BASE}/${filename}` : undefined
+}
+
 import { Header } from '@/components/Header'
 import { Hero } from '@/components/Hero'
 import { WaveDivider } from '@/components/ui/WaveDivider'
@@ -76,10 +86,10 @@ export default async function HomePage() {
       ]
 
   const heroImageUrl = typeof data?.siteSettings?.heroImage === 'object' && data.siteSettings.heroImage
-    ? (data.siteSettings.heroImage as { url?: string }).url
+    ? resolveMediaUrl((data.siteSettings.heroImage as { url?: string }).url)
     : undefined
   const aboutImageUrl = typeof data?.siteSettings?.aboutImage === 'object' && data.siteSettings.aboutImage
-    ? (data.siteSettings.aboutImage as { url?: string }).url
+    ? resolveMediaUrl((data.siteSettings.aboutImage as { url?: string }).url)
     : undefined
 
   // For about body, use CMS rich text if available, otherwise default
@@ -114,7 +124,7 @@ export default async function HomePage() {
         focalX: (g as unknown as { focalX?: number }).focalX ?? 50,
         focalY: (g as unknown as { focalY?: number }).focalY ?? 50,
         sortOrder: g.sortOrder || 0,
-        image: typeof g.image === 'object' && g.image ? { url: (g.image as { url?: string }).url } : { url: '' },
+        image: typeof g.image === 'object' && g.image ? { url: resolveMediaUrl((g.image as { url?: string }).url) || '' } : { url: '' },
       }))
     : []
 
